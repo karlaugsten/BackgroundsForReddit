@@ -1,0 +1,9 @@
+# OS X file system file.
+.DS_Store
+
+# Builds.
+build/
+dist/
+
+# pyc preferences.
+*.pyc
