@@ -7,8 +7,8 @@ Usage:
 
 from setuptools import setup
 
-APP = ['app.py']
-DATA_FILES = ['reddit_image_picker.py']
+APP = ['src/app.py']
+DATA_FILES = ['src/reddit_image_picker.py', 'src/app_preferences.py']
 OPTIONS = {'argv_emulation': True,
             'packages': ['praw', 'rumps'],
             }
