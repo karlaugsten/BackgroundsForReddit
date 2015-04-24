@@ -27,7 +27,7 @@ installDependencies () {
         [Yy]* ) echo "Installing Python and pip."
             brew install python # Installs Python and pip
             echo "Python and pip installed."
-            pip install praw pyobjc-core pyobjc rumps flufl.enum pillow urllib3 py2app
+            pip install praw pyobjc-core pyobjc rumps flufl.enum pillow==2.4.0 urllib3 py2app
             echo "Dependencies installed." ;;
         * ) echo "Dependencies are necessary to develop the application."
             exit ;;
