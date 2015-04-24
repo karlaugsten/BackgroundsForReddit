@@ -57,10 +57,16 @@ class BackgroundsForRedditApp(rumps.App):
         self.setOrdering(self.preferences.ordering)
         self.setUpdateInterval(self.preferences.update_interval)
         self.setLimit(self.preferences.limit)
+        # Tell the user that BackgroundsForReddit is running!
+        try:
+            rumps.notification("Backgrounds", "Your background app is running", "click 'Backgrounds' in the statusbar for preferences", None, True)
+        except RuntimeError as e:
+            print 'Operating system does not support notifications'
 
     @rumps.clicked("Ordering", "Hot")
     def hot(self, sender):
         self.setOrdering("hot")
+
 
     @rumps.clicked("Ordering", "Top")
     def top(self, sender):
