@@ -10,6 +10,9 @@ from setuptools import setup
 APP = ['src/app.py']
 DATA_FILES = ['src/reddit_image_picker.py', 'src/app_preferences.py']
 OPTIONS = {'argv_emulation': True,
+            'plist': {
+                'LSUIElement': True,
+            },
             'packages': ['praw', 'rumps'],
             }
 
