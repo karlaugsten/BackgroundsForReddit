@@ -17,7 +17,7 @@ checkPipDependencies () {
 
 createApp () {
     echo "Creating .app executable file."
-    python setup.py py2app -A
+    python setup.py py2app
     echo "BackgroundsForReddit.app file created."
 }
 
