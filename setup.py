@@ -8,7 +8,7 @@ Usage:
 from setuptools import setup
 
 APP = ['src/app.py']
-DATA_FILES = ['src/reddit_image_picker.py', 'src/app_preferences.py']
+DATA_FILES = ['src/reddit_image_picker.py', 'src/app_preferences.py', 'src/secrets.py']
 OPTIONS = {'argv_emulation': True,
             'plist': {
                 'LSUIElement': True,
