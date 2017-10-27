@@ -77,31 +77,31 @@ class BackgroundsForRedditApp(rumps.App):
         self.setOrdering("new")
 
     @rumps.clicked("Update every", "5 seconds")
-    def prefs(self, sender):
+    def updatefiveseconds(self, _):
         self.setUpdateInterval(5)
 
     @rumps.clicked("Update every", "10 seconds")
-    def prefs(self, sender):
+    def updateten(self, _):
         self.setUpdateInterval(10)
 
     @rumps.clicked("Update every", "30 seconds")
-    def prefs(self, sender):
+    def updatethirty(self, _):
         self.setUpdateInterval(30)
 
     @rumps.clicked("Update every", "Minute")
-    def prefs(self, sender):
+    def updateminute(self, _):
         self.setUpdateInterval(60)
 
     @rumps.clicked("Update every", "5 minutes")
-    def prefs(self, sender):
+    def updatefive(self, _):
         self.setUpdateInterval(300)
 
     @rumps.clicked("Update every", "Hour")
-    def prefs(self, sender):
+    def updatehour(self, _):
         self.setUpdateInterval(3600)
 
     @rumps.clicked("Update every", "Other")
-    def prefs(self, sender):
+    def updateother(self, _):
         resp = rumps.Window("Please enter another interval you would to refresh at (in seconds)",
                         "Refresh rate",
                         "5"
@@ -115,23 +115,23 @@ class BackgroundsForRedditApp(rumps.App):
         self.setLimit("hour")
 
     @rumps.clicked("Limit", "Day")
-    def limit_hour(self, sender):
+    def limit_dat(self, sender):
         self.setLimit("day")
 
     @rumps.clicked("Limit", "Week")
-    def limit_hour(self, sender):
+    def limit_week(self, sender):
         self.setLimit("week")
 
     @rumps.clicked("Limit", "Month")
-    def limit_hour(self, sender):
+    def limit_month(self, sender):
         self.setLimit("month")
 
     @rumps.clicked("Limit", "Year")
-    def limit_hour(self, sender):
+    def limit_year(self, sender):
         self.setLimit("year")
 
     @rumps.clicked("Limit", "All")
-    def limit_hour(self, sender):
+    def limit_all(self, sender):
         self.setLimit("all")
 
     @rumps.clicked("Subreddit")

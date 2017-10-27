@@ -23,6 +23,16 @@ pillow
 urllib
 py2app
 
-To run the app simply run:
+## Running the app for developers
+
+First add a secrets.py file to the src directory:
+
+/src/secrets.py:
+client_id='my client id from reddit'
+client_secret='my client secret from reddit'
+
+(this is needed to access the reddit API)
+
+After this, simply run:
 
 python ./src/app.py

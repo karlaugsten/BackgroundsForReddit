@@ -7,3 +7,4 @@ dist/
 
 # pyc preferences.
 *.pyc
+src/secrets.py

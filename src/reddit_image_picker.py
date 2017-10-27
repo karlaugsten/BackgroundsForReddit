@@ -8,6 +8,7 @@ from AppKit import NSWorkspace, NSScreen, NSDistributedNotificationCenter, NSWor
 from Foundation import NSURL
 from PIL import Image
 from flufl.enum import Enum
+from secrets import client_id, client_secret
 
 class Ordering(Enum):
     """
@@ -48,7 +49,7 @@ class RedditImagePicker():
         subreddit using praw
     """
     def __init__(self, subreddit, ordering, limit):
-        self.reddit = praw.Reddit(user_agent='Test Script by /u/GermanEng')
+        self.reddit = praw.Reddit(user_agent='Test script by /u/Karklenator', client_id=client_id, client_secret=client_secret)
         self.subreddit = subreddit
         self.images = []
         self.last_image = None
@@ -74,11 +75,11 @@ class RedditImagePicker():
             print "Retrieving more images after " + str(self.last_image)
             if self.ordering is Ordering.top:
                 param['t'] = self.limit # set the limit only for top
-                submissions = self.reddit.get_subreddit(self.subreddit).get_top(limit=10, params=param)
+                submissions = self.reddit.subreddit(self.subreddit).top(limit=10, params=param)
             elif self.ordering is Ordering.hot:
-                submissions = self.reddit.get_subreddit(self.subreddit).get_hot(limit=10, params=param)
+                submissions = self.reddit.subreddit(self.subreddit).hot(limit=10, params=param)
             elif self.ordering is Ordering.new:
-                submissions = self.reddit.get_subreddit(self.subreddit).get_hot(limit=10, params=param)
+                submissions = self.reddit.subreddit(self.subreddit).new(limit=10, params=param)
 
             self.last_image = None
             for submission in submissions:
