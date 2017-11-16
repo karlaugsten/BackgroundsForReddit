@@ -5,7 +5,7 @@ import uuid
 import sys, traceback
 
 from AppKit import NSWorkspace, NSScreen, NSDistributedNotificationCenter, NSWorkspaceDesktopImageAllowClippingKey, NSWorkspaceDesktopImageScalingKey, NSImageScaleProportionallyUpOrDown, NSDictionary
-from Foundation import NSURL
+from Foundation import NSURL, NSFileManager, NSApplicationSupportDirectory, NSUserDomainMask, NSBundle
 from PIL import Image
 from flufl.enum import Enum
 from secrets import client_id, client_secret
@@ -55,6 +55,21 @@ class RedditImagePicker():
         self.last_image = None
         self.ordering = Ordering[ordering]
         self.limit = limit
+        self.imageNumber = 0
+        fileManager = NSFileManager.defaultManager()
+        fileUrl = fileManager.URLsForDirectory_inDomains_(NSApplicationSupportDirectory, NSUserDomainMask)[0]
+        appId = NSBundle.mainBundle().bundleIdentifier()
+        fileUrl = fileUrl.URLByAppendingPathComponent_(appId)
+        self.imageDirectory = self.createImageDirectory()
+
+    def createImageDirectory(self):
+        fileManager = NSFileManager.defaultManager()
+        fileUrl = fileManager.URLsForDirectory_inDomains_(NSApplicationSupportDirectory, NSUserDomainMask)[0]
+        appId = NSBundle.mainBundle().bundleIdentifier()
+        fileUrl = fileUrl.URLByAppendingPathComponent_(appId)
+        if not fileManager.fileExistsAtPath_(fileUrl.path()):
+            fileManager.createDirectoryAtPath_withIntermediateDirectories_attributes_error_(fileUrl.path(), False, None, None)
+        return fileUrl.path()
 
     def setOrdering(self, ordering):
         new_ordering = Ordering[ordering]
@@ -94,13 +109,21 @@ class RedditImagePicker():
         self.images = []
         self.subreddit = sub
 
+    def getNextImageIdentifier(self):
+        self.imageNumber = (self.imageNumber + 1)%100
+        return self.imageNumber
+
+    def getNextImagePath(self):
+        imagePath = NSURL.fileURLWithPath_(self.imageDirectory).URLByAppendingPathComponent_(str(self.getNextImageIdentifier()))
+        return imagePath.path()
+
     def changeBackground(self, sender):
         # Just surround the whole method in a giant try/catch block because why the hell not?
         try:
             next_image = self.nextImage()
             while next_image.saved == False:
                 try:
-                    if not next_image.saved: next_image.save()
+                    if not next_image.saved: next_image.save(self.getNextImagePath())
                 except Exception as e:
                     print 'Error saving image: ' + str(e)
                     next_image = self.nextImage()
